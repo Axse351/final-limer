@@ -22,12 +22,37 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        User::create([
-            'name' => 'Staff',
-            'email' => 'staff@gmail.com',
-            'password' => Hash::make('12345678'),
-            'role' => 'staff',
-            'namawahana' => 'Coba'
-        ]);
+        $request = [
+            [
+                "name" => "staff",
+                "email" => "axsenathanzx@gmail.com",
+                "password" => Hash::make("12345"),
+                "role" => "staff",
+                "namawahana" => "makan",
+            ],
+            [
+                "name" => "example",
+                "email" => "admin@gmail.com",
+                "password" => Hash::make("12345"),
+                "role" => "admin",
+                "namawahana" => "none",
+            ],
+            [
+                "name" => "example",
+                "email" => "scan1@gmail.com",
+                "password" => Hash::make("12345"),
+                "role" => "scan1",
+                "namawahana" => "biang lala",
+            ],
+            [
+                "name" => "example",
+                "email" => "scan2@gmail.com",
+                "password" => Hash::make("12345"),
+                "role" => "scan2",
+                "namawahana" => "komedi putar",
+            ],
+        ];
+
+        User::insert($request);
     }
 }

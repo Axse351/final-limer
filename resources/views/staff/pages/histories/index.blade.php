@@ -33,14 +33,14 @@
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form id="scanForm" action="{{ route('staff.histories.store')}}" method="POST">
+                                    <form id="scanForm" action="{{ route('staff.histories.store') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="qrcode" id="qrcodeInput">
                                         <input type="hidden" name="jenis_transaksi" id="jenisTransaksiInput">
                                         <input type="hidden" name="qty" value="1">
                                         <input type="hidden" name="tanggal" id="tanggalInput">
                                         <input type="hidden" name="jam" id="jamInput">
-                                    </form>                                    
+                                    </form>
                                 </div>
 
                                 <div class="clearfix mb-3"></div>
@@ -54,19 +54,19 @@
                                             <th class="text-center">Jam</th>
                                             <th class="text-center">qty</th>
                                             <th class="text-center">Wahana Dipakai</th>
-                                            <th class="text-center">Staff</th>
+                                            <th class="text-center">Nama Wahana</th>
                                         </tr>
                                         @foreach ($histories as $history)
-                                        <tr>
-                                            <td class="text-center">{{ $history->jenis_transaksi }}</td>
-                                            <td class="text-center">{{ $history->transaksi->nm_konsumen }}</td>
-                                            <td class="text-center">{{ $history->tanggal }}</td>
-                                            <td class="text-center">{{ $history->jam }}</td>
-                                            <td class="text-center">{{ $history->qty }}</td>
-                                            <td class="text-center">{{ $history->namawahana }}</td> 
-                                            <td class="text-center">{{ $history->user->namawahana }}</td> 
-                                        </tr>
-                                    @endforeach                                    
+                                            <tr>
+                                                <td class="text-center">{{ $history->jenis_transaksi }}</td>
+                                                <td class="text-center">{{ $history->transaksi->nm_konsumen }}</td>
+                                                <td class="text-center">{{ $history->tanggal }}</td>
+                                                <td class="text-center">{{ $history->jam }}</td>
+                                                <td class="text-center">{{ $history->qty }}</td>
+                                                <td class="text-center">{{ $history->namawahana }}</td>
+                                                <td class="text-center">{{ $history->user->namawahana }}</td>
+                                            </tr>
+                                        @endforeach
                                     </table>
                                 </div>
 
@@ -82,7 +82,8 @@
     </div>
 
     <!-- Modal for scanning -->
-    <div class="modal fade" id="scanResultModal" tabindex="-1" role="dialog" aria-labelledby="scanResultModalLabel" aria-hidden="true">
+    <div class="modal fade" id="scanResultModal" tabindex="-1" role="dialog" aria-labelledby="scanResultModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -118,7 +119,7 @@
             // Function to handle successful scans
             function onScanSuccess(decodedText, decodedResult) {
                 console.log(`Code matched = ${decodedText}`, decodedResult);
-    
+
                 // Prepare data to send to the server
                 const scanData = {
                     qrcode: decodedText,
@@ -128,7 +129,7 @@
                     jam: new Date().toTimeString().split(' ')[0], // Current time in HH:MM:SS format
                     _token: '{{ csrf_token() }}' // Include CSRF token for Laravel
                 };
-    
+
                 // Send data via AJAX
                 $.ajax({
                     url: '{{ route('staff.histories.store') }}', // Update with your store route
@@ -155,19 +156,19 @@
                     }
                 });
             }
-    
+
             // Start scanning on button click
             document.getElementById('start-scan-btn').addEventListener('click', function() {
                 document.getElementById('qr-reader').style.display = 'block'; // Show the QR reader
-                const html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { 
-                    fps: 10, 
-                    qrbox: 250 
+                const html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
+                    fps: 10,
+                    qrbox: 250
                 });
                 html5QrcodeScanner.render(onScanSuccess, onScanFailure);
             });
         });
     </script>
-    
+
     <script>
         $(document).ready(function() {
             // Function to handle scan results
@@ -190,9 +191,9 @@
 
             // Start scanning on button click
             document.getElementById('start-scan-btn').addEventListener('click', function() {
-                const html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { 
-                    fps: 10, 
-                    qrbox: 250 
+                const html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
+                    fps: 10,
+                    qrbox: 250
                 });
                 html5QrcodeScanner.render(onScanSuccess, onScanFailure);
             });
@@ -206,5 +207,3 @@
         });
     </script>
 @endpush
-
-

@@ -12,12 +12,14 @@
 
         <ul class="sidebar-menu">
             <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('scan2.dashboard') }}"><i class="fa fa-home" style="color: #1F316F";></i>
+                <a class="nav-link" href="{{ route('scan2.dashboard') }}"><i class="fa fa-home"
+                        style="color: #1F316F";></i>
                     <span style="color: #1F316F";>Beranda</span></a>
             </li>
             <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('scan2.scan.index') }}"><i class="fa fa-qrcode"  style="color: #1F316F";></i>
-                    <span  style="color: #1F316F";>Scan Barcode</span></a>
+                <a class="nav-link" href="{{ route('scan2.scan.index') }}"><i class="fa fa-qrcode"
+                        style="color: #1F316F";></i>
+                    <span style="color: #1F316F";>Scan Barcode</span></a>
             </li>
             {{-- <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('staff.history.index') }}"><i class="far fa-fire"></i>

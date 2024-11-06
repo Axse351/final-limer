@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}"  />
     <title>@yield('title') &mdash; Stisla</title>
 
     <!-- General CSS Files -->
@@ -61,6 +62,13 @@
     <script src="{{ asset('js/stisla.js') }}"></script>
 
     @stack('scripts')
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
 
     <!-- Template JS File -->
     <script src="{{ asset('js/scripts.js') }}"></script>

@@ -83,7 +83,11 @@ Route::middleware(['auth'])->group(function () {
         })->name('scan1.dashboard');
 
         Route::get('scan', [ScanController::class, 'scan_one'])->name('scan1.scan.index');
-        Route::post('scan', [ScanController::class, 'scannn'])->name('scan.process');
+        Route::post('/scan', [ScanController::class, 'scan_satu'])->name('scan1.scan.process');
+
+        Route::get('/histories', [HistoriesController::class, 'index'])->name('staff.histories.index');
+        Route::post('/histories/update/{id}', [HistoriesController::class, 'update'])->name('histories.update');
+        Route::post('/histories/update-qty/{id}', [HistoriesController::class, 'updateQty'])->name('histories.updateQty');
     });
 
     Route::prefix('scan2')->middleware('roleAs:scan2')->group(function () {
@@ -92,10 +96,18 @@ Route::middleware(['auth'])->group(function () {
         })->name('scan2.dashboard');
 
         Route::get('scan', [ScanController::class, 'scan_two'])->name('scan2.scan.index');
-        // Route::post('scan', [ScanController::class, 'scannnn'])->name('scan.process');
+        Route::post('/scan', [ScanController::class, 'scan_dua'])->name('scan2.scan.process');
+
+        Route::get('/histories', [HistoriesController::class, 'index'])->name('staff.histories.index');
+        Route::post('/histories/update/{id}', [HistoriesController::class, 'update'])->name('histories.update');
+        Route::post('/histories/update-qty/{id}', [HistoriesController::class, 'updateQty'])->name('histories.updateQty');
 
     });
 
+
+    Route::get('staff/checkTransaksi/{barcode}', [TransaksiController::class, 'checkTransaksi'])->name('staff.transaksi.checkTransaksi');
+
+    Route::post('staff/histories/store', [HistoriesController::class, 'store'])->name('staff.histories.store');
 
     // ============ STAFF =============
     Route::prefix('staff')->middleware('roleAs:staff')->group(function () {
@@ -117,7 +129,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/scan-form', [ScanController::class, 'showScanForm'])->name('staff.scan.form');
         // Route::post('/scan/process', [ScanController::class, 'scan'])->name('scan.process');
         Route::get('/histories', [HistoriesController::class, 'index'])->name('staff.histories.index');
-        Route::post('/histories/store', [HistoriesController::class, 'store'])->name('staff.histories.store');
         Route::post('/histories/update/{id}', [HistoriesController::class, 'update'])->name('histories.update');
         Route::post('/histories/update-qty/{id}', [HistoriesController::class, 'updateQty'])->name('histories.updateQty');
 
@@ -127,7 +138,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/transaksi', [TransaksiController::class, 'index'])->name('staff.transaksi.index');
         Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('staff.transaksi.create');
         Route::post('/transaksi', [TransaksiController::class, 'store'])->name('staff.transaksi.store');
-        Route::get('/checkTransaksi/{barcode}', [TransaksiController::class, 'checkTransaksi'])->name('staff.transaksi.checkTransaksi');
         Route::delete('transaksi/{transaksi}', [TransaksiController::class, 'destroy'])->name('staff.transaksi.destroy');
         Route::get('/transaksi/{id}', [TransaksiController::class, 'show'])->name('staff.transaksi.show');
         Route::post('/staff/transaksi/sendMessage', [TransaksiController::class, 'sendWhatsAppMessage'])->name('staff.transaksi.sendWhatsApp');
